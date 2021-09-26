@@ -1,0 +1,18 @@
+.gradle/
+.idea/
+Recipes/First recipe/
+Recipes/More chefs to the table/
+Recipes/Multiple recipes/
+Recipes/Sort   update/
+Recipes/Store a recipe/
+Recipes/lesson-info.yaml
+Recipes/recipe_db.mv.db
+Recipes/task/build/
+Recipes/task/out/
+Recipes/task/test/
+course-info.yaml
+course-remote-info.yaml
+gradle/
+gradlew
+gradlew.bat
+settings.gradle
