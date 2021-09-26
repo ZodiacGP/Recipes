@@ -1,43 +1,36 @@
 package recipes.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import recipes.domain.Recipe;
 import recipes.service.RecipeService;
 
+import javax.validation.Valid;
 import java.util.Map;
 
-@RestController("/api/recipe")
+@RestController
+@RequestMapping("/api/recipe")
+@Validated
 public class RecipeController {
 
 	@Autowired
 	RecipeService recipeService;
 
-	@GetMapping("{id}")
-	public ResponseEntity<?> getRecipe(@PathVariable int id) {
-		Recipe recipe = recipeService.getRecipeById(id);
-		return ResponseEntity.status(recipeService.getResponseStatus(recipe)).body(recipe);
+	@GetMapping("/{id}")
+	public Recipe getRecipe(@PathVariable int id) {
+		return recipeService.getRecipeById(id);
 	}
 
-	@PostMapping("new")
-	public ResponseEntity<?> addRecipe(@RequestBody Recipe recipe) {
-		HttpStatus status = recipeService.getResponseStatus(recipe);
-		if (status.equals(HttpStatus.OK)) {
-			recipeService.save(recipe);
-		}
-		return ResponseEntity.status(status).body(Map.of("id", recipe.getId()));
+	@PostMapping("/new")
+	public Map<String, Integer> addRecipe(@RequestBody @Valid Recipe recipe) {
+		return Map.of("id", recipeService.save(recipe));
 	}
 
-	@DeleteMapping("{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteRecipe(@PathVariable int id) {
-		Recipe recipe = recipeService.getRecipeById(id);
-		HttpStatus status = recipeService.getResponseStatus(recipe);
-		if (status.equals(HttpStatus.OK)) {
-			recipeService.delete(id);
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		}
-		return ResponseEntity.status(status).build();
+		recipeService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }
