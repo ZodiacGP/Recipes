@@ -29,15 +29,14 @@ public class RecipeController {
 		return Map.of("id", recipeService.save(recipe));
 	}
 
-	@GetMapping("/search")
-	public ResponseEntity<List<Recipe>> searchCategory(@RequestParam Map<String, String> param) {
-		if (param.containsKey("category")) {
-			return ResponseEntity.ok(recipeService.getRecipeByCategory(param.get("category")));
-		}
-		if (param.containsKey("name")) {
-			return ResponseEntity.ok(recipeService.getRecipeByName(param.get("name")));
-		}
-		return ResponseEntity.badRequest().build();
+	@GetMapping(value = "/search", params = "name")
+	public ResponseEntity<List<Recipe>> searchName(@RequestParam String name) {
+		return ResponseEntity.ok(recipeService.getRecipeByName(name));
+	}
+
+	@GetMapping(value = "/search", params = "category")
+	public ResponseEntity<List<Recipe>> searchCategory(@RequestParam String category) {
+		return ResponseEntity.ok(recipeService.getRecipeByCategory(category));
 	}
 
 	@PutMapping("/{id}")
