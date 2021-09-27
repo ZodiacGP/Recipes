@@ -8,6 +8,7 @@ import recipes.domain.Recipe;
 import recipes.service.RecipeService;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,6 +27,24 @@ public class RecipeController {
 	@PostMapping("/new")
 	public Map<String, Integer> addRecipe(@RequestBody @Valid Recipe recipe) {
 		return Map.of("id", recipeService.save(recipe));
+	}
+
+	@GetMapping("/search")
+	public ResponseEntity<List<Recipe>> searchCategory(@RequestParam Map<String, String> param) {
+		if (param.containsKey("category")) {
+			return ResponseEntity.ok(recipeService.getRecipeByCategory(param.get("category")));
+		}
+		if (param.containsKey("name")) {
+			return ResponseEntity.ok(recipeService.getRecipeByName(param.get("name")));
+		}
+		return ResponseEntity.badRequest().build();
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> update(@PathVariable int id, @RequestBody @Valid Recipe recipe) {
+		recipeService.update(id, recipe);
+		return ResponseEntity.noContent().build();
+
 	}
 
 	@DeleteMapping("/{id}")
