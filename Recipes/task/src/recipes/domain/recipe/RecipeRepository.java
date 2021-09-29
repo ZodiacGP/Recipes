@@ -1,4 +1,4 @@
-package recipes.domain;
+package recipes.domain.recipe;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
