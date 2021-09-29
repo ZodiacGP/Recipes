@@ -54,6 +54,4 @@ public class UserDetailsImpl implements UserDetails {
 	public String toString() {
 		return user.getEmail();
 	}
-
-
 }

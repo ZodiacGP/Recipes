@@ -6,9 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import recipes.domain.recipe.Recipe;
 import recipes.service.RecipeService;
-import recipes.service.UserService;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -22,14 +20,12 @@ public class RecipeController {
 	RecipeService recipeService;
 
 	@GetMapping("/{id}")
-	public Recipe getRecipe(HttpServletResponse response, @PathVariable int id) {
-		response.addHeader("Content-type", "application/json");
+	public Recipe getRecipe(@PathVariable int id) {
 		return recipeService.getRecipeById(id);
 	}
 
 	@PostMapping("/new")
-	public Map<String, Integer> addRecipe(HttpServletResponse response, @RequestBody @Valid Recipe recipe) {
-		response.addHeader("Content-type", "application/json");
+	public Map<String, Integer> addRecipe(@RequestBody @Valid Recipe recipe) {
 		return Map.of("id", recipeService.save(recipe));
 	}
 

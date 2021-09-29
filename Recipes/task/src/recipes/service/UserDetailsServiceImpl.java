@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import recipes.domain.user.User;
 import recipes.security.UserDetailsImpl;
-import recipes.domain.user.UserRepository;
+import recipes.dao.UserRepository;
 
 import java.util.Optional;
 
@@ -21,7 +21,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Optional<User> user = userRepository.findByEmail(email);
 		user.orElseThrow(() -> new UsernameNotFoundException(email + " not found."));
-
 		return user.map(UserDetailsImpl::new).get();
 	}
 }

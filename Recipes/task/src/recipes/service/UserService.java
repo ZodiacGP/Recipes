@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import recipes.domain.user.User;
 import recipes.domain.user.UserAlreadyExistsException;
-import recipes.domain.user.UserRepository;
+import recipes.dao.UserRepository;
 
 @Service
 public class UserService {
@@ -24,7 +24,6 @@ public class UserService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
 	}
-
 
 	public String getLoggedInUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

@@ -1,12 +1,10 @@
 package recipes.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import recipes.domain.recipe.Recipe;
 import recipes.domain.recipe.RecipeNotFoundException;
-import recipes.domain.recipe.RecipeRepository;
+import recipes.dao.RecipeRepository;
 import recipes.domain.user.ForbiddenException;
 
 import java.util.List;
